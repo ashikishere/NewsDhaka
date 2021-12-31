@@ -114,32 +114,101 @@ include "header.php";
                     </form>
 
 
-                    <?php 
+                    <?php
 
                     // adding file to data base
-        
-        if(isset($_POST['submit_btn'])){
-           $categ_name= $_POST['cat_name'];
-           $categ_desc= $_POST['cat_desc'];
-           $categ_status = $_POST['c_status'];
-        //    echo $categ_name.' '.$categ_desc;
 
-        $insert_query  = "INSERT INTO category (c_name,c_desc,c_status) VALUE ('$categ_name','$categ_desc','$categ_status')";
-         $result = mysqli_query($db, $insert_query);
+                    if (isset($_POST['submit_btn'])) {
+                        $categ_name = $_POST['cat_name'];
+                        $categ_desc = $_POST['cat_desc'];
+                        $categ_status = $_POST['c_status'];
+                        //    echo $categ_name.' '.$categ_desc;
 
-         if($result){
-            header('Location: category.php');
-         }else{
-            die("Category insert error!!".mysqli_error($db));
-         }
+                        $insert_query  = "INSERT INTO category (c_name,c_desc,c_status) VALUE ('$categ_name','$categ_desc','$categ_status')";
+                        $result = mysqli_query($db, $insert_query);
 
-        }
-        
-        
-        ?>
+                        if ($result) {
+                            header('Location: category.php');
+                        } else {
+                            die("Category insert error!!" . mysqli_error($db));
+                        }
+                    }
+
+
+                    ?>
 
                 </div>
             </div>
+
+            <!-- Edit/update category start -->
+            <?php
+            if (isset($_GET['edit_id'])) {
+                $edit_id = $_GET['edit_id'];
+                $edit_quray = "SELECT * FROM category WHERE c_id =' $edit_id'";
+                $edit_result = mysqli_query($db, $edit_quray);
+
+                while ($row = mysqli_fetch_assoc($edit_result)) {
+                    $cat_id  = $row['c_id'];
+                    $cat_name =  $row['c_name'];
+                    $cat_desc =  $row['c_desc'];
+                    $cat_status =  $row['c_status'];
+                    ?>
+            <div class="card">
+                <div class="card-header">
+                    <h4>Edit Category</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="form-group">
+                            <input type="text" name="cat_name" class="form-control" value="<?php echo $cat_name ?>"
+                                required>
+                            <textarea name="cat_desc" class="form-control my-3" rows="4"
+                                placeholder="Category Description" required><?php echo $cat_desc ?></textarea>
+                            <label for="select" class="my-2">Select Category Status</label>
+                            <select class="form-select" name="c_status" required>
+                                <optgroup label="Select Status">
+                                    <option value="1" <?php if($cat_status==1){echo "selected";}?>>Active</option>
+                                    <option value="0" <?php if($cat_status==0){echo "selected";}?>>inactive</option>
+                                </optgroup>
+
+                            </select>
+                            <input type="submit" class="btn btn-md btn-success mt-3" value="Update" name="update_btn">
+                        </div>
+                    </form>
+
+
+                    <?php
+
+                    // update file  to data base
+
+                    if (isset($_POST['update_btn'])) {
+                        $categ_name = $_POST['cat_name'];
+                        $categ_desc = $_POST['cat_desc'];
+                        $categ_status = $_POST['c_status'];
+                        //    echo $categ_name.' '.$categ_desc;
+
+                        $update_query  = "UPDATE category SET c_name ='$categ_name',c_desc='$categ_desc',c_status='$categ_status' WHERE c_id='$edit_id' ";
+                        $update_result = mysqli_query($db, $update_query);
+
+                        if ($update_result) {
+                            header('Location: category.php');
+                        } else {
+                            die("Category insert error!!" . mysqli_error($db));
+                        }
+                    }
+
+
+                    ?>
+
+                </div>
+            </div>
+            <?php
+                }
+            }
+
+            ?>
+
+            <!-- Edit/update category end -->
         </div>
         <div class="col-12 col-lg-5 col-md-5">
             <div class="card">
@@ -158,35 +227,35 @@ include "header.php";
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
+                                <?php
                                 // reading file from data base
-                                
-                                $query= "SELECT * FROM category";
-                                $result= mysqli_query($db, $query);
-                                $count = 0;
-                                
-                                while ($row =  mysqli_fetch_assoc($result)) {
-                                  $cat_id  =$row['c_id'];
-                                  $cat_name=  $row['c_name'];
-                                  $cat_desc=  $row['c_desc'];
-                                  $cat_status=  $row['c_status'];
-                                  $count++
 
-                                //   echo $cat_id.' '.$cat_name.' '.$cat_desc.'<br>' ;
+                                $query = "SELECT * FROM category";
+                                $result = mysqli_query($db, $query);
+                                $count = 0;
+
+                                while ($row =  mysqli_fetch_assoc($result)) {
+                                    $cat_id  = $row['c_id'];
+                                    $cat_name =  $row['c_name'];
+                                    $cat_desc =  $row['c_desc'];
+                                    $cat_status =  $row['c_status'];
+                                    $count++
+
+                                    //   echo $cat_id.' '.$cat_name.' '.$cat_desc.'<br>' ;
                                 ?>
                                 <tr>
                                     <td class="text-bold-500"><?php echo $count ?></td>
                                     <td class="text-bold-500"><?php echo $cat_name ?></td>
                                     <td class="text-bold-500">
-                                        <?php 
-                                        
-                                        if($cat_status == 1){
-                                            echo '<div class= "badge bg-success">active</div>';
-                                        }else{
-                                            echo '<div class= "badge bg-danger">inactive</div>';
-                                        }
-                                        
-                                        ?>
+                                        <?php
+
+                                            if ($cat_status == 1) {
+                                                echo '<div class= "badge bg-success">active</div>';
+                                            } else {
+                                                echo '<div class= "badge bg-danger">inactive</div>';
+                                            }
+
+                                            ?>
                                     </td>
                                     <td class="text-bold-500">
                                         <!-- Button trigger modal -->
@@ -230,24 +299,24 @@ include "header.php";
         </div>
     </div>
 
-    <?php 
-                                
-                                //Deleted item
+    <?php
 
-                                if(isset($_GET['delete_id'])){
-                                    $item_id = $_GET['delete_id'];
+    //Deleted item
 
-                                    $delete_query = "DELETE FROM category WHERE c_id ='$item_id'";
-                                    $res = mysqli_query($db, $delete_query);
+    if (isset($_GET['delete_id'])) {
+        $item_id = $_GET['delete_id'];
 
-                                    if($res){
-                                        header('Location: category.php');
-                                    }else{
-                                        die("category Delete Error!!".mysqli_error($db));
-                                    }
-                                }
-                                
-                                ?>
+        $delete_query = "DELETE FROM category WHERE c_id ='$item_id'";
+        $res = mysqli_query($db, $delete_query);
+
+        if ($res) {
+            header('Location: category.php');
+        } else {
+            die("category Delete Error!!" . mysqli_error($db));
+        }
+    }
+
+    ?>
 
 </div>
 
