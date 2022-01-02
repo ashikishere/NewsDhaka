@@ -2,15 +2,7 @@
 include "header.php";
 
 ?>
-<style>
-.cicon:hover {
-    color: red;
-}
 
-.sicon:hover {
-    color: green;
-}
-</style>
 <div class="page-heading">
     <h3>All Categories Information</h3>
 </div>

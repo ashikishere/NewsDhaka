@@ -1,0 +1,13 @@
+.cicon:hover {
+  color: red;
+}
+
+.sicon:hover {
+  color: green;
+}
+
+.img-avater {
+  max-width: 100%;
+  width: 70px;
+  border-radius: 50%;
+}

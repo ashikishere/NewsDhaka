@@ -16,6 +16,7 @@ ob_start();
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
 
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
 
@@ -23,6 +24,7 @@ ob_start();
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -50,22 +52,23 @@ ob_start();
                             </a>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="category.php" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
                                 <span>Category</span>
                             </a>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Manage User</span>
+                            </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="component-alert.html">Add New Category</a>
+                                    <a href="users.php?do=Manage">User Management</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="component-badge.html">View All categories</a>
-                                </li>
-
                             </ul>
                         </li>
-
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
