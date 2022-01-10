@@ -1,0 +1,19 @@
+body {
+  font-family: monospace;
+
+  background-color: #ecebec;
+}
+.main-content {
+  width: 100%;
+  padding: 40px 0px;
+}
+
+footer {
+  width: 100%;
+  padding: 10px 0px;
+  background-color: #212529;
+}
+footer p {
+  color: #ecebec;
+  margin-bottom: 0px;
+}

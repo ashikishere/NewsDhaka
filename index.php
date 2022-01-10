@@ -1,38 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include "inc/header.php";
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NewsToday</title>
-    <style>
-    body {
-        font-family: monospace;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        background-color: #ECEBEC;
-    }
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>All Content Here</h1>
+            </div>
+            <div class="col-md-4">
+                <?php
+                include "inc/sideber.php";
+                ?>
+            </div>
+        </div>
+    </div>
 
-    h1 {
-        font-size: 40px;
-        margin-bottom: 0px;
+</section>
 
-    }
-
-    h4 {
-        font-size: 20px;
-        color: gray;
-    }
-    </style>
-</head>
-
-<body>
-    <h1>Website Under Construction</h1>
-    <h4>something is comming better!!</h4>
-</body>
-
-</html>
+<?php
+include "inc/footer.php";
+?>
