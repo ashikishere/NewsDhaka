@@ -1,7 +1,11 @@
-<?php 
+<?php
 
 include "inc/connection.php";
 ob_start();
+session_start();
+if (!$_SESSION['email']) {
+    header("Location: index.php");
+}
 
 ?>
 
@@ -34,7 +38,7 @@ ob_start();
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.php"><i class="bi bi-tags"></i>NewsToday</a>
+                            <a href="dashboard.php"><i class="bi bi-tags"></i>NewsToday</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -46,7 +50,7 @@ ob_start();
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="dashboard.php" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -58,6 +62,16 @@ ob_start();
                                 <span>Category</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="blog.php?do=Manage" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Blog Management</span>
+                            </a>
+                        </li>
+                        <?php
+                        // user managemnet menu
+                        if ($_SESSION['role'] == 1) {
+                        ?>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
@@ -69,68 +83,17 @@ ob_start();
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>Extra Components</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="extra-component-avatar.html">Avatar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-toastify.html">Toastify</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-rating.html">Rating</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Divider</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php
+                        }
 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical with Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
+                        ?>
 
-                        <li class="sidebar-title">Settings</li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>Authentication</span>
+
+                        <li class="sidebar-item">
+                            <a href="logout.php" class='sidebar-link'>
+                                <i class="iconly-boldProfile"></i>
+                                <span>Sing Out</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="auth-login.html">Login</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </div>
