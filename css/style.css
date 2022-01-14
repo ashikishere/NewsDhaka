@@ -5,7 +5,7 @@ body {
 }
 .main-content {
   width: 100%;
-  padding: 40px 0px;
+  padding: 15px 0px;
 }
 
 footer {
@@ -16,4 +16,39 @@ footer {
 footer p {
   color: #ecebec;
   margin-bottom: 0px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: capitalize;
+  font-size: 16px;
+}
+.all-post {
+  width: 100%;
+  border: 1px solid rgba(77, 60, 60, 0.157);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+}
+
+.single-post {
+  width: 90%;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.single-post .btn-primary {
+  margin-top: 15px;
+}
+.post-img {
+  width: 250px;
+  margin: 10px 10px;
+}
+
+.single-post .title-name {
+  text-decoration: none;
+  text-transform: capitalize;
+  color: #212529;
+}
+.single-post .title-name:hover {
+  color: cornflowerblue;
 }
