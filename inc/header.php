@@ -13,7 +13,8 @@ include "admin/inc/connection.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="css/style.css"> -->
-    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet"
+        href="css/style.css?v=<?php echo time(); ?>">
 
     <title>NewsToday | home</title>
 </head>
@@ -37,11 +38,10 @@ include "admin/inc/connection.php";
                         $navber_item = mysqli_query($db, $sql);
                         while ($row = mysqli_fetch_assoc($navber_item)) {
                             $c_id  = $row['c_id'];
-                            $c_name = $row['c_name'];
-
-                        ?>
+                            $c_name = $row['c_name']; ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="post.php?category=<?php $c_id; ?>"><?php echo $c_name; ?></a>
+                            <a class="nav-link"
+                                href="post.php?category=<?php echo $c_id; ?>"><?php echo $c_name; ?></a>
                         </li>
                         <?php
                         }
