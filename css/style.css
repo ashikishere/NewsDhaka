@@ -52,3 +52,8 @@ footer p {
 .single-post .title-name:hover {
   color: cornflowerblue;
 }
+
+.thumnails {
+  width: 100%;
+  margin-bottom: 30px;
+}

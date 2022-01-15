@@ -109,18 +109,18 @@ include "header.php";
                                 <tbody>
                                     <?php
                                             $select_query = "SELECT * FROM users";
-                                            $result = mysqli_query($db, $select_query);
-                                            $count = 0;
+                                            $result       = mysqli_query($db, $select_query);
+                                            $count        = 0;
                                             while ($row =  mysqli_fetch_assoc($result)) {
-                                                $id = $row['id'];
-                                                $name = $row['name'];
+                                                $id       = $row['id'];
+                                                $name     = $row['name'];
                                                 $username =    $row['username'];
-                                                $email =    $row['email'];
+                                                $email    =    $row['email'];
                                                 $password =   $row['password'];
-                                                $phone =   $row['phone'];
-                                                $adress =   $row['address'];
-                                                $role =   $row['role'];
-                                                $image =   $row['image'];
+                                                $phone    =   $row['phone'];
+                                                $adress   =   $row['address'];
+                                                $role     =   $row['role'];
+                                                $image    =   $row['image'];
                                                 $count++;
                                             ?>
                                     <tr>
@@ -136,8 +136,8 @@ include "header.php";
                                             <?php
                                                         } else {
                                                         ?>
-                                            <img src="assets/images/users/<?php echo $image; ?>" alt="avaterimg"
-                                                class="img-avater">
+                                            <img src="assets/images/users/<?php echo $image; ?>"
+                                                alt="avaterimg" class="img-avater">
                                             <?php
                                                         }
                                                         ?>
@@ -189,11 +189,13 @@ include "header.php";
                                         <td> <a href="" data-bs-toggle="modal"
                                                 data-bs-target="#delete<?php echo $id ?>"><i
                                                     class="bi bi-trash cicon"></i></a>
-                                            <a href="users.php?do=Edit&id=<?php echo $id; ?>"><i
+                                            <a
+                                                href="users.php?do=Edit&id=<?php echo $id; ?>"><i
                                                     class="bi bi-pencil sicon "></i></a>
                                             <!-- Modal -->
-                                            <div class="modal fade" id="delete<?php echo $id ?>" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade"
+                                                id="delete<?php echo $id ?>"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -305,16 +307,16 @@ include "header.php";
                         } else if ($do == "Insert") {
                             //    insert code
                             if (isset($_POST['register'])) {
-                                $username = $_POST['username'];
-                                $name = $_POST['name'];
-                                $email = $_POST['email'];
-                                $phone = $_POST['phone'];
-                                $address = $_POST['address'];
-                                $password = $_POST['password'];
+                                $username       = $_POST['username'];
+                                $name           = $_POST['name'];
+                                $email          = $_POST['email'];
+                                $phone          = $_POST['phone'];
+                                $address        = $_POST['address'];
+                                $password       = $_POST['password'];
                                 $retypepassword = $_POST['retypepassword'];
-                                $role = $_POST['role'];
-                                $profile_img = $_FILES['image']['name'];
-                                $profile_tmp = $_FILES['image']['tmp_name'];
+                                $role           = $_POST['role'];
+                                $profile_img    = $_FILES['image']['name'];
+                                $profile_tmp    = $_FILES['image']['tmp_name'];
 
                                 if ($password == $retypepassword) {
                                     # encripted pass
@@ -323,10 +325,10 @@ include "header.php";
                                     #image file name chnage and move image to the folder
 
                                     $rand_number = rand(0, 1000000);
-                                    $image_file = $rand_number . $profile_img;
+                                    $image_file  = $rand_number . $profile_img;
                                     move_uploaded_file($profile_tmp, "assets/images/users/" .  $image_file);
 
-                                    $insert_query = "INSERT INTO users(name, username, email, password, phone, address, role, image) VALUES('$name','$username','$email','$hassedpass','$phone','$address','$role','$image_file')";
+                                    $insert_query   = "INSERT INTO users(name, username, email, password, phone, address, role, image) VALUES('$name','$username','$email','$hassedpass','$phone','$address','$role','$image_file')";
                                     $register_users = mysqli_query($db, $insert_query);
                                     if ($register_users) {
                                         header('Location: users.php');
@@ -338,19 +340,19 @@ include "header.php";
                         } else if ($do == 'Edit') {
                             // edit code start here
                             if (isset($_GET['id'])) {
-                                $users_id = $_GET['id'];
+                                $users_id         = $_GET['id'];
                                 $users_edit_quray = "SELECT * FROM users WHERE id =' $users_id'";
-                                $edit_result = mysqli_query($db, $users_edit_quray);
+                                $edit_result      = mysqli_query($db, $users_edit_quray);
 
                                 while ($row = mysqli_fetch_assoc($edit_result)) {
-                                    $id =    $row['id'];
-                                    $name =    $row['name'];
+                                    $id       =    $row['id'];
+                                    $name     =    $row['name'];
                                     $username =    $row['username'];
-                                    $email =    $row['email'];
-                                    $phone =    $row['phone'];
-                                    $address =    $row['address'];
-                                    $role =    $row['role'];
-                                    $image =    $row['image'];
+                                    $email    =    $row['email'];
+                                    $phone    =    $row['phone'];
+                                    $address  =    $row['address'];
+                                    $role     =    $row['role'];
+                                    $image    =    $row['image'];
                             ?>
                     <div class="card card-primary">
                         <div class="card-header">
@@ -363,27 +365,33 @@ include "header.php";
                                         <div class="form-group">
                                             <label for="username">Username</label>
                                             <input type="text" name="username" id="username" class="form-control"
-                                                autocomplete="off" value="<?php echo $username; ?>" disabled>
+                                                autocomplete="off"
+                                                value="<?php echo $username; ?>"
+                                                disabled>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Full Name</label>
                                             <input type="text" name="name" id="name" class="form-control"
-                                                autocomplete="off" value="<?php echo $name; ?>">
+                                                autocomplete="off"
+                                                value="<?php echo $name; ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="email" name="email" id="email" class="form-control"
-                                                autocomplete="off" value="<?php echo $email; ?>">
+                                                autocomplete="off"
+                                                value="<?php echo $email; ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Phone No</label>
                                             <input type="text" name="phone" id="phone" class="form-control"
-                                                autocomplete="off" value="<?php echo $phone; ?>">
+                                                autocomplete="off"
+                                                value="<?php echo $phone; ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="address">Address</label>
                                             <input type="text" name="address" id="address" class="form-control"
-                                                autocomplete="off" value="<?php echo $address; ?>">
+                                                autocomplete="off"
+                                                value="<?php echo $address; ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -408,7 +416,8 @@ include "header.php";
                                                 <option value="1" <?php if ($role == 1) {
                                                                                         echo "selected";
                                                                                     }; ?>>Super
-                                                    Admin</option>
+                                                    Admin
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -417,8 +426,9 @@ include "header.php";
 
                                                             if (!empty($image)) {
                                                             ?>
-                                            <img src="assets/images/users/<?php echo $image; ?>" alt=""
-                                                style="width: 80px; height: 80px; margin-bottom:5px;" class="d-block">
+                                            <img src="assets/images/users/<?php echo $image; ?>"
+                                                alt="" style="width: 80px; height: 80px; margin-bottom:5px;"
+                                                class="d-block">
                                             <?php
                                                             } else {
                                                             ?>
@@ -432,7 +442,8 @@ include "header.php";
                                             <input type="file" name="image" class="form-control-file">
                                         </div>
                                         <div class="form-group">
-                                            <input type="hidden" name="update" value="<?php echo $users_id ?>">
+                                            <input type="hidden" name="update"
+                                                value="<?php echo $users_id ?>">
                                             <input type="submit" name="save" class="btn btn-primary"
                                                 value="Update User">
                                         </div>
@@ -448,23 +459,23 @@ include "header.php";
                             // echo "Update user informations";
                             if (isset($_POST['update'])) {
                                 # code...
-                                $the_update_id = $_POST['update'];
-                                $name = $_POST['name'];
-                                $email = $_POST['email'];
-                                $phone = $_POST['phone'];
-                                $address = $_POST['address'];
-                                $password = $_POST['password'];
+                                $the_update_id  = $_POST['update'];
+                                $name           = $_POST['name'];
+                                $email          = $_POST['email'];
+                                $phone          = $_POST['phone'];
+                                $address        = $_POST['address'];
+                                $password       = $_POST['password'];
                                 $retypepassword = $_POST['retypepassword'];
-                                $role = $_POST['role'];
-                                $profile_img = $_FILES['image']['name'];
-                                $profile_tmp = $_FILES['image']['tmp_name'];
+                                $role           = $_POST['role'];
+                                $profile_img    = $_FILES['image']['name'];
+                                $profile_tmp    = $_FILES['image']['tmp_name'];
 
                                 //for password php code
                                 if (!empty($password)) {
                                     if ($password == $retypepassword) {
                                         # encripted pass
-                                        $hassedpass = sha1($password);
-                                        $sql = "UPDATE users SET password = '$hassedpass' WHERE id ='$the_update_id' ";
+                                        $hassedpass  = sha1($password);
+                                        $sql         = "UPDATE users SET password = '$hassedpass' WHERE id ='$the_update_id' ";
                                         $update_pass = mysqli_query($db,  $sql);
                                     }
                                 }
@@ -473,22 +484,22 @@ include "header.php";
 
                                     //Delete images from folder and database
 
-                                    $del_id = $_GET['deleteUser'];
+                                    // $del_id = $_GET['deleteUser'];
 
-                                    //Delete images from folder and database
-                                    $delete_img_query = "SELECT * FROM users WHERE id ='$del_id'";
-                                    $del_img = mysqli_query($db, $delete_img_query);
-                                    while ($row = mysqli_fetch_assoc($del_img)) {
-                                        $user_img = $row['image'];
-                                    }
-                                    unlink("assets/images/users/$user_img");
+                                    // //Delete images from folder and database
+                                    // $delete_img_query = "SELECT * FROM users WHERE id ='$del_id'";
+                                    // $del_img = mysqli_query($db, $delete_img_query);
+                                    // while ($row = mysqli_fetch_assoc($del_img)) {
+                                    //     $user_img = $row['image'];
+                                    // }
+                                    // unlink("assets/images/users/$user_img");
 
 
                                     $rand_number = rand(0, 1000000);
-                                    $imageFile = $rand_number . $profile_img;
+                                    $imageFile   = $rand_number . $profile_img;
                                     move_uploaded_file($profile_tmp, "assets/images/users/" . $imageFile);
 
-                                    $sql = "UPDATE users SET name='$name',email ='$email',phone='$phone',address ='$address',role ='$role',image ='$imageFile' WHERE id ='$the_update_id' ";
+                                    $sql         = "UPDATE users SET name='$name',email ='$email',phone='$phone',address ='$address',role ='$role',image ='$imageFile' WHERE id ='$the_update_id' ";
                                     $update_info = mysqli_query($db, $sql);
                                     if ($update_info) {
                                         header("Location: users.php?do=Manage");
@@ -514,7 +525,7 @@ include "header.php";
 
                                 //Delete images from folder and database
                                 $delete_img_query = "SELECT * FROM users WHERE id ='$del_id'";
-                                $del_img = mysqli_query($db, $delete_img_query);
+                                $del_img          = mysqli_query($db, $delete_img_query);
                                 while ($row = mysqli_fetch_assoc($del_img)) {
                                     $user_img = $row['image'];
                                 }
@@ -522,7 +533,7 @@ include "header.php";
 
                                 //Delete users from data base
                                 $delete_query = "DELETE FROM users WHERE id ='$del_id'";
-                                $res = mysqli_query($db, $delete_query);
+                                $res          = mysqli_query($db, $delete_query);
 
                                 if ($res) {
                                     header('Location: users.php?do=Manage');
@@ -548,4 +559,3 @@ include "header.php";
 
 <?php
 include "footer.php";
-?>

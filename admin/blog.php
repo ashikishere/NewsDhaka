@@ -1,5 +1,6 @@
 <?php
 include "header.php";
+$login_author = $_SESSION['id'];
 
 ?>
 
@@ -108,8 +109,8 @@ include "header.php";
                                 <tbody>
                                     <?php
                                         $select_query = "SELECT * FROM post";
-                                        $all_post = mysqli_query($db, $select_query);
-                                        $count = 0;
+                                        $all_post     = mysqli_query($db, $select_query);
+                                        $count        = 0;
                                         while ($row =  mysqli_fetch_assoc($all_post)) {
                                             $post_id     = $row['post_id'];
                                             $title       = $row['title'];
@@ -136,8 +137,8 @@ include "header.php";
                                             <?php
                                                     } else {
                                                     ?>
-                                            <img src="assets/images/post/<?php echo $thumbnail; ?>" alt="avaterimg"
-                                                class="img-avater">
+                                            <img src="assets/images/post/<?php echo $thumbnail; ?>"
+                                                alt="avaterimg" class="img-avater">
                                             <?php
                                                     }
                                                     ?>
@@ -145,11 +146,11 @@ include "header.php";
 
                                         <td>
                                             <?php
-                                                    $sql = "SELECT * FROM category WHERE c_id ='$category_id'";
+                                                    $sql     = "SELECT * FROM category WHERE c_id ='$category_id'";
                                                     $all_cat = mysqli_query($db, $sql);
 
                                                     while ($row = mysqli_fetch_assoc($all_cat)) {
-                                                        $c_id = $row['c_id'];
+                                                        $c_id   = $row['c_id'];
                                                         $c_name = $row['c_name'];
                                                     }
 
@@ -160,11 +161,11 @@ include "header.php";
                                         </td>
                                         <td>
                                             <?php
-                                                    $sql = "SELECT * FROM users WHERE id ='$author_id'";
+                                                    $sql        = "SELECT * FROM users WHERE id ='$author_id'";
                                                     $all_author = mysqli_query($db, $sql);
 
                                                     while ($row = mysqli_fetch_assoc($all_author)) {
-                                                        $id = $row['id'];
+                                                        $id   = $row['id'];
                                                         $name = $row['name'];
                                                     }
 
@@ -181,11 +182,13 @@ include "header.php";
                                         <td> <a href="" data-bs-toggle="modal"
                                                 data-bs-target="#delete<?php echo $post_id ?>"><i
                                                     class="bi bi-trash cicon"></i></a>
-                                            <a href="blog.php?do=Edit&id=<?php echo $post_id; ?>"><i
+                                            <a
+                                                href="blog.php?do=Edit&id=<?php echo $post_id; ?>"><i
                                                     class="bi bi-pencil sicon "></i></a>
 
-                                            <div class="modal fade" id="delete<?php echo $post_id ?>" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade"
+                                                id="delete<?php echo $post_id ?>"
+                                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -243,15 +246,18 @@ include "header.php";
                                                 <option selected disabled>Select Your Category✍️</option>
                                                 <?php
 
-                                                    $sql = "SELECT * FROM category WHERE c_status=1 ";
+                                                    $sql     = "SELECT * FROM category WHERE c_status=1 ";
                                                     $all_cat = mysqli_query($db, $sql);
                                                     while ($row = mysqli_fetch_assoc($all_cat)) {
 
-                                                        $c_id  = $row['c_id'];
+                                                        $c_id    = $row['c_id'];
                                                         $c_name  = $row['c_name'];
 
                                                     ?>
-                                                <option value="<?php echo $c_id; ?>"><?php echo $c_name; ?></option>
+                                                <option
+                                                    value="<?php echo $c_id; ?>">
+                                                    <?php echo $c_name; ?>
+                                                </option>
                                                 <?php
                                                     }
                                                     ?>
@@ -280,21 +286,21 @@ include "header.php";
                     } else if ($do == "Insert") {
                         // echo "this is Insert";
                         if (isset($_POST['publish'])) {
-                            $title = mysqli_real_escape_string($db, $_POST['title']);
-                            $description = mysqli_real_escape_string($db, $_POST['description']);
-                            $category_id = $_POST['category_id'];
-                            $thumbnail = $_FILES['thumbnail']['name'];
+                            $title          = mysqli_real_escape_string($db, $_POST['title']);
+                            $description    = mysqli_real_escape_string($db, $_POST['description']);
+                            $category_id    = $_POST['category_id'];
+                            $thumbnail      = $_FILES['thumbnail']['name'];
                             $thumbnail_temp = $_FILES['thumbnail']['tmp_name'];
-                            $author_id = 1;
+                            // $author_id      = 1;
 
                             #image file name chnage and move image to the folder
 
                             $rand_number = rand(0, 1000000);
-                            $image_file = $rand_number . $thumbnail;
+                            $image_file  = $rand_number . $thumbnail;
                             move_uploaded_file($thumbnail_temp, "assets/images/post/" .  $image_file);
 
-                            $insert_query = "INSERT INTO post(title,description,thumbnail,category_id,author_id, postDate) VALUES ('$title','$description','$image_file','$category_id','$author_id', now() )";
-                            $add_post = mysqli_query($db, $insert_query);
+                            $insert_query = "INSERT INTO post(title,description,thumbnail,category_id,author_id, postDate) VALUES ('$title','$description','$image_file','$category_id','$login_author', now() )";
+                            $add_post     = mysqli_query($db, $insert_query);
                             if ($add_post) {
                                 header('Location: blog.php');
                             } else {
@@ -303,9 +309,9 @@ include "header.php";
                         }
                     } else if ($do == 'Edit') {
                         // echo "this is Edit";
-                        $post_id = $_GET['id'];
+                        $post_id         = $_GET['id'];
                         $post_edit_quray = "SELECT * FROM post WHERE post_id  ='$post_id'";
-                        $edit_result = mysqli_query($db, $post_edit_quray);
+                        $edit_result     = mysqli_query($db, $post_edit_quray);
                         while ($row = mysqli_fetch_assoc($edit_result)) {
                             $post_id     = $row['post_id'];
                             $title       = $row['title'];
@@ -327,25 +333,29 @@ include "header.php";
                                         <div class="form-group">
                                             <label for="title">Post Titile</label>
                                             <input type="text" name="title" id="title" class="form-control"
-                                                autocomplete="off" required value="<?php echo $title; ?>">
+                                                autocomplete="off" required
+                                                value="<?php echo $title; ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="category_id">Category Name</label>
                                             <select name="category_id" class="form-control">
                                                 <option disabled>Select Your Category✍️</option>
                                                 <?php
-                                                        $sql = "SELECT * FROM category WHERE c_status=1 ";
+                                                        $sql     = "SELECT * FROM category WHERE c_status=1 ";
                                                         $all_cat = mysqli_query($db, $sql);
                                                         while ($row = mysqli_fetch_assoc($all_cat)) {
 
-                                                            $c_id  = $row['c_id'];
+                                                            $c_id    = $row['c_id'];
                                                             $c_name  = $row['c_name'];
 
                                                         ?>
-                                                <option value="<?php echo $c_id; ?>" <?php if ($c_id == $category_id) {
+                                                <option
+                                                    value="<?php echo $c_id; ?>"
+                                                    <?php if ($c_id == $category_id) {
                                                                                                         echo "selected";
                                                                                                     } ?>>
-                                                    <?php echo $c_name; ?></option>
+                                                    <?php echo $c_name; ?>
+                                                </option>
                                                 <?php
                                                         }
                                                         ?>
@@ -363,8 +373,9 @@ include "header.php";
 
                                                     if (!empty($thumbnail)) {
                                                     ?>
-                                            <img src="assets/images/post/<?php echo $thumbnail; ?>" alt=""
-                                                style="width: 80px; height: 80px; margin-bottom:5px;" class="d-block">
+                                            <img src="assets/images/post/<?php echo $thumbnail; ?>"
+                                                alt="" style="width: 80px; height: 80px; margin-bottom:5px;"
+                                                class="d-block">
                                             <?php
                                                     } else {
                                                     ?>
@@ -377,7 +388,8 @@ include "header.php";
                                             <input type="file" name="thumbnail" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <input type="hidden" name="update" value="<?php echo $post_id ?>">
+                                            <input type="hidden" name="update"
+                                                value="<?php echo $post_id ?>">
                                             <input type="submit" name="publish" class="btn btn-primary"
                                                 value="Update Post">
                                         </div>
@@ -394,13 +406,13 @@ include "header.php";
                         // echo "this is update";
                         if (isset($_POST['update'])) {
                             # code...
-                            $the_update_id = $_POST['update'];
-                            $title = mysqli_real_escape_string($db, $_POST['title']);
-                            $description = mysqli_real_escape_string($db, $_POST['description']);
-                            $category_id = $_POST['category_id'];
-                            $thumbnail = $_FILES['thumbnail']['name'];
+                            $the_update_id  = $_POST['update'];
+                            $title          = mysqli_real_escape_string($db, $_POST['title']);
+                            $description    = mysqli_real_escape_string($db, $_POST['description']);
+                            $category_id    = $_POST['category_id'];
+                            $thumbnail      = $_FILES['thumbnail']['name'];
                             $thumbnail_temp = $_FILES['thumbnail']['tmp_name'];
-                            $author_id = 1;
+                            $author_id      = 1;
 
                             //for image code
                             if (!empty($thumbnail)) {
@@ -419,10 +431,10 @@ include "header.php";
 
 
                                 $rand_number = rand(0, 1000000);
-                                $imageFile = $rand_number . $thumbnail;
+                                $imageFile   = $rand_number . $thumbnail;
                                 move_uploaded_file($profile_tmp, "assets/images/post/" . $imageFile);
 
-                                $sql = "UPDATE post SET title='$title',description ='$description',category_id='$category_id',author_id ='$author_id',thumbnail ='$imageFile' WHERE post_id ='$the_update_id' ";
+                                $sql         = "UPDATE post SET title='$title',description ='$description',category_id='$category_id',author_id ='$author_id',thumbnail ='$imageFile' WHERE post_id ='$the_update_id' ";
                                 $update_post = mysqli_query($db, $sql);
                                 if ($update_post) {
                                     header("Location: blog.php?do=Manage");
@@ -430,7 +442,7 @@ include "header.php";
                                     die("Update faild" . mysqli_error($db));
                                 }
                             } else {
-                                $sql = "UPDATE post SET title='$title',description ='$description',category_id='$category_id',author_id ='$author_id' WHERE post_id ='$the_update_id' ";
+                                $sql         = "UPDATE post SET title='$title',description ='$description',category_id='$category_id',author_id ='$author_id' WHERE post_id ='$the_update_id' ";
                                 $update_post = mysqli_query($db, $sql);
                                 if ($update_post) {
                                     header("Location: blog.php?do=Manage");
@@ -446,7 +458,7 @@ include "header.php";
 
                             //Delete images from folder and database
                             $delete_img_query = "SELECT * FROM post WHERE post_id ='$del_id'";
-                            $del_thumbnail = mysqli_query($db, $delete_img_query);
+                            $del_thumbnail    = mysqli_query($db, $delete_img_query);
                             while ($row = mysqli_fetch_assoc($del_thumbnail)) {
                                 $thumbnail = $row['thumbnail'];
                             }
@@ -455,7 +467,7 @@ include "header.php";
 
                             //Delete users from data base
                             $delete_query = "DELETE FROM post WHERE post_id  ='$del_id'";
-                            $res = mysqli_query($db, $delete_query);
+                            $res          = mysqli_query($db, $delete_query);
 
                             if ($res) {
                                 header('Location: blog.php?do=Manage');
@@ -475,4 +487,3 @@ include "header.php";
 
 <?php
 include "footer.php";
-?>

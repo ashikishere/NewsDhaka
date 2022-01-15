@@ -34,11 +34,11 @@ include "admin/inc/connection.php";
 
                         <?php
 
-                        $sql = "SELECT * FROM category WHERE c_status=1";
+                        $sql         = "SELECT * FROM category WHERE c_status=1";
                         $navber_item = mysqli_query($db, $sql);
                         while ($row = mysqli_fetch_assoc($navber_item)) {
-                            $c_id  = $row['c_id'];
-                            $c_name = $row['c_name']; ?>
+                            $c_id    = $row['c_id'];
+                            $c_name  = $row['c_name']; ?>
                         <li class="nav-item">
                             <a class="nav-link"
                                 href="post.php?category=<?php echo $c_id; ?>"><?php echo $c_name; ?></a>

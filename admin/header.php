@@ -83,6 +83,17 @@ if (!$_SESSION['email']) {
                                 </li>
                             </ul>
                         </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>All Comments</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="comments.php?do=Manage">Comments Management</a>
+                                </li>
+                            </ul>
+                        </li>
                         <?php
                         }
 
